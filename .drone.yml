@@ -6,6 +6,11 @@ steps:
   - name: docker
     image: plugins/docker
     settings:
-      repo: registry.internal.hoffmeister.biz/diztortion/exim
-      registry: registry.internal.hoffmeister.biz
-      auto_tags: true
+      repo: docker-registry.internal.hoffmeister.biz/diztortion/exim
+      registry: docker-registry.internal.hoffmeister.biz
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      tags: latest
+      auto_tag: true
