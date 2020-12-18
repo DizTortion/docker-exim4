@@ -6,7 +6,7 @@ steps:
   - name: docker
     image: plugins/docker
     settings:
-      repo: docker-registry.internal.hoffmeister.biz/diztortion/exim
+      repo: docker-registry.internal.hoffmeister.biz/diztortion/exim4
       registry: docker-registry.internal.hoffmeister.biz
       username:
         from_secret: docker_username
