@@ -1,12 +1,8 @@
-FROM debian
+FROM alpine
 
-ARG DEBIAN_FRONTEND=noninteractive
+ARG TAG
 
-RUN apt-get update \
- && apt-get install --assume-yes \
-    exim4 \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache exim=$TAG
 
 EXPOSE 25
 
