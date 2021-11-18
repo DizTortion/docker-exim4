@@ -3,13 +3,17 @@ type: docker
 name: default
 
 steps:
+  - name: tag image
+    image: harbor.home.hoffmeister.biz/docker.io-cache/library/alpine
+    commands:
+      - apk update
+      - apk info exim | grep "installed size:" | sed -E 's/.+-(\d+\.\d+(\.\d+)?-r\d+) installed size:/\1/' > .tags
   - name: docker
-    image: plugins/docker
+    image: harbor.home.hoffmeister.biz/docker.io-cache/plugins/kaniko
     settings:
-      repo: harbor.home.hoffmeister.biz/diztortion/exim4
+      repo: harbor.home.hoffmeister.biz/diztortion/exim
       registry: harbor.home.hoffmeister.biz
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      tags: latest
