@@ -10,7 +10,7 @@ all: build push clean
 
 build: check-env
 	@echo Building ${REGISTRY_IMAGE}:${TAG}
-	@buildah bud --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" --label "org.opencontainers.image.version=$(TAG)" --build-arg TAG=${TAG} --tag ${REGISTRY_IMAGE}:${TAG} --timestamp 0 .
+	@buildah bud --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" --label "org.opencontainers.image.version=$(TAG)" --build-arg TAG=${TAG} --tag ${REGISTRY_IMAGE}:${TAG} --timestamp 0 --pull .
 #	@buildah images --filter label=name=${PACKAGE_NAME} --filter label=stage=builder --quiet | xargs --no-run-if-empty buildah rmi
 
 push: check-env
