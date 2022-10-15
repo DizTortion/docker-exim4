@@ -1,19 +1,17 @@
 kind: pipeline
-type: docker
+type: kubernetes
 name: default
 
 steps:
-  - name: tag image
-    image: harbor.home.hoffmeister.biz/docker.io-cache/library/alpine
-    commands:
-      - apk update
-      - apk info exim | grep "installed size:" | sed -E 's/.+-(\d+\.\d+(\.\d+)?-r\d+) installed size:/\1/' > .tags
-  - name: docker
-    image: harbor.home.hoffmeister.biz/docker.io-cache/plugins/kaniko
-    settings:
-      repo: harbor.home.hoffmeister.biz/diztortion/exim
-      registry: harbor.home.hoffmeister.biz
-      username:
+  - name: build
+    image: harbor.home.hoffmeister.biz/diztortion/podman:alpine
+    pull: always
+    environment:
+      HARBOR_USERNAME:
         from_secret: docker_username
-      password:
+      HARBOR_PASSWORD:
         from_secret: docker_password
+    commands:
+      - podman info
+      - echo $HARBOR_PASSWORD | podman login --username $HARBOR_USERNAME --password-stdin harbor.home.hoffmeister.biz
+      - make
