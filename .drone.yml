@@ -1,17 +1,2 @@
-kind: pipeline
-type: kubernetes
-name: default
-
-steps:
-  - name: build
-    image: harbor.home.hoffmeister.biz/diztortion/podman:alpine
-    pull: always
-    environment:
-      HARBOR_USERNAME:
-        from_secret: docker_username
-      HARBOR_PASSWORD:
-        from_secret: docker_password
-    commands:
-      - podman info
-      - echo $HARBOR_PASSWORD | podman login --username $HARBOR_USERNAME --password-stdin harbor.home.hoffmeister.biz
-      - make
+kind: template
+load: makefile-podman.yaml
