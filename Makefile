@@ -1,5 +1,5 @@
 REGISTRY=harbor.home.hoffmeister.biz
-IMAGE=diztortion/exim
+IMAGE=alpine-images/exim
 REGISTRY_IMAGE=${REGISTRY}/${IMAGE}
 
 PACKAGE_NAME=exim
